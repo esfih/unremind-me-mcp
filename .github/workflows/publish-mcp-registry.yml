@@ -33,6 +33,9 @@ jobs:
           sudo mv mcp-publisher /usr/local/bin/
           mcp-publisher --version
 
+      - name: Inspect publisher flags
+        run: mcp-publisher publish --help || true
+
       - name: Validate server.json
         run: mcp-publisher validate
 

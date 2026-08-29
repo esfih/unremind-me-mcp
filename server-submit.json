@@ -1,0 +1,18 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.esfih/unremind-me-submit",
+  "title": "UnRemind.me Submit",
+  "description": "Send a reminder to anyone with a public UnRemind.me page. No account or token.",
+  "version": "1.0.0",
+  "websiteUrl": "https://unremind.me/",
+  "repository": {
+    "url": "https://github.com/esfih/unremind-me-mcp",
+    "source": "github"
+  },
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://unremind.me/mcp/submit?src=mcp-registry-submit"
+    }
+  ]
+}

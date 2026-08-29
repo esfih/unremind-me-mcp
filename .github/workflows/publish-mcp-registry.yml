@@ -64,5 +64,25 @@ jobs:
       - name: Login via GitHub OIDC
         run: mcp-publisher login github-oidc
 
-      - name: Publish
+      - name: Publish (manage server)
         run: mcp-publisher publish
+
+      # The submit server is a SECOND registry entry from the same repo.
+      # Publishing it here rather than hand-submitting to each directory is
+      # what makes downstream marketplaces ingest it under our canonical
+      # identifier -- Glama derived `me.unremind/un-remindme` from the domain
+      # for a hand submission, but inherited `io.github.esfih/unremind-me`
+      # from server.json for the ingested one.
+      - name: Verify the submit endpoint is live
+        run: |
+          out=$(curl -s -w '\n%{http_code}' -X POST \
+            -H 'Content-Type: application/json' \
+            -H 'User-Agent: unremind-mcp-registry-publish/1.0' \
+            -d '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{}}' \
+            https://unremind.me/mcp/submit)
+          code=$(printf '%s' "$out" | tail -n1)
+          echo "POST /mcp/submit -> $code"
+          [ "$code" = "200" ] || { echo "::error::submit endpoint returned $code"; exit 1; }
+
+      - name: Publish (submit server)
+        run: mcp-publisher publish --file server-submit.json

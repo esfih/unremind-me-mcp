@@ -93,7 +93,7 @@ Production. Server `unremind-mcp` v2.0.0. Liveness at
 <https://unremind.me/health> (`200` healthy / `503` degraded), checked
 continuously.
 
-Issues and questions: [open an issue](https://github.com/esfih/unremind-mcp/issues)
+Issues and questions: [open an issue](https://github.com/esfih/unremind-me-mcp/issues)
 or <mailto:support@unremind.me>.
 
 ## License

@@ -1,11 +1,11 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-09-29/server.schema.json",
-  "name": "io.github.esfih/unremind",
+  "name": "io.github.esfih/unremind-me",
   "description": "UnRemind.me \u2014 context-aware reminders that surface when your situation matches, not at a fixed time. 16 tools for Unreminders, context tags, delegated tasks, conflict checks and workload review.",
   "version": "2.0.0",
   "websiteUrl": "https://unremind.me/",
   "repository": {
-    "url": "https://github.com/esfih/unremind-mcp",
+    "url": "https://github.com/esfih/unremind-me-mcp",
     "source": "github"
   },
   "remotes": [

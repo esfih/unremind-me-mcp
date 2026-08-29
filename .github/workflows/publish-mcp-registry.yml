@@ -113,13 +113,19 @@ jobs:
       # once, when a mis-parsed flag made publish re-send the wrong file and
       # report "duplicate". Checking the registry for both names is the only
       # thing that actually proves what happened.
+      # Verify the OUTCOME, not the exit code. The idempotency handler above
+      # tolerates a duplicate-version 400 — which once masked a real bug, when
+      # a mis-parsed flag made publish re-send the wrong file and report
+      # "duplicate". Only querying the registry proves what actually happened.
       - name: Verify both servers are live in the registry
         run: |
-          fail=0
+          set -e
           for n in unremind-me unremind-me-submit; do
-            hit=$(curl -s "https://registry.modelcontextprotocol.io/v0/servers?search=io.github.esfih/$n" \
-                  | grep -c "\"io.github.esfih/$n\"" || true)
-            if [ "$hit" -gt 0 ]; then echo "OK   io.github.esfih/$n is live"
-            else echo "::error::io.github.esfih/$n NOT found in the registry"; fail=1; fi
+            url="https://registry.modelcontextprotocol.io/v0/servers?search=io.github.esfih/${n}"
+            if curl -s "$url" | grep -Fq "io.github.esfih/${n}\""; then
+              echo "OK   io.github.esfih/${n} is live"
+            else
+              echo "::error::io.github.esfih/${n} NOT found in the registry"
+              exit 1
+            fi
           done
-          exit $fail

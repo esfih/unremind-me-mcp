@@ -63,7 +63,7 @@ Four user-invocable prompts, available from your MCP client's prompt menu:
 | **Capture this as an Unreminder** | Turns raw text into a well-tagged task |
 | **Resume where I left off** | For an agent starting a session: orient, then continue instead of starting cold |
 
-## Install
+## Where to start
 
 `orient` is the one to call first — it returns who the user is, how they want
 to be worked with, what you were last doing, and what needs attention. One

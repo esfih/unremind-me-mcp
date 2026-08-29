@@ -42,10 +42,24 @@ jobs:
       # strategy exists to avoid.
       - name: Verify the advertised endpoint is live
         run: |
-          code=$(curl -s -o /dev/null -w '%{http_code}' -X POST \
-            -H 'Content-Type: application/json' -d '{}' https://unremind.me/mcp)
-          echo "POST /mcp -> $code (401 expected: auth required, endpoint alive)"
-          [ "$code" = "401" ] || { echo "::error::Endpoint not answering as expected"; exit 1; }
+          # Runs from a GitHub-hosted runner, i.e. a datacenter IP behind our
+          # CDN's bot protection. Print the body as well as the code: a 403
+          # here means the edge blocked the runner, which is a very different
+          # problem from the origin being down, and the status code alone
+          # cannot tell them apart.
+          out=$(curl -s -w '\n%{http_code}' -X POST \
+            -H 'Content-Type: application/json' \
+            -H 'User-Agent: unremind-mcp-registry-publish/1.0' \
+            -d '{"jsonrpc":"2.0","id":1,"method":"tools/list"}' https://unremind.me/mcp)
+          code=$(printf '%s' "$out" | tail -n1)
+          body=$(printf '%s' "$out" | sed '$d' | head -c 300)
+          echo "POST /mcp -> $code"
+          echo "body: $body"
+          case "$code" in
+            401) echo "OK: auth required, endpoint alive" ;;
+            403) echo "::error::Edge/WAF blocked the runner (403). The origin is probably fine; allow this User-Agent or datacenter range." ; exit 1 ;;
+            *)   echo "::error::Unexpected status $code" ; exit 1 ;;
+          esac
 
       - name: Login via GitHub OIDC
         run: mcp-publisher login github-oidc

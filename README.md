@@ -10,9 +10,11 @@ surfaces when your current context matches. Tasks can also be **delegated to
 AI agents**, each with scoped access rights and an audit log the owner
 reviews.
 
+[![smithery badge](https://smithery.ai/badge/submissions-epan/unremind-me)](https://smithery.ai/servers/submissions-epan/unremind-me)
+
 **Endpoint** · `https://unremind.me/mcp`
 **Transport** · Streamable HTTP (JSON-RPC 2.0) · **Auth** · Bearer token ·
-**Tools** · 16
+**Tools** · 16 · **Prompts** · 4
 
 ---
 
@@ -45,7 +47,23 @@ screen without affecting the others.
 
 ## Tools
 
-See **[TOOLS.md](TOOLS.md)** for all 16 with descriptions.
+See **[TOOLS.md](TOOLS.md)** for all 16 with descriptions. Every tool carries
+MCP behavioural annotations (`readOnlyHint`, `destructiveHint`,
+`idempotentHint`, `openWorldHint`) so a client knows which are safe to call
+without confirming and which must not be blindly retried.
+
+## Prompts
+
+Four user-invocable prompts, available from your MCP client's prompt menu:
+
+| Prompt | |
+|---|---|
+| **What can I do right now?** | Give it your available minutes and what you have with you; it finds the tasks that actually fit |
+| **Plan my day** | Reviews overdue/due-soon work and checks real calendar conflicts before proposing times |
+| **Capture this as an Unreminder** | Turns raw text into a well-tagged task |
+| **Resume where I left off** | For an agent starting a session: orient, then continue instead of starting cold |
+
+## Install
 
 `orient` is the one to call first — it returns who the user is, how they want
 to be worked with, what you were last doing, and what needs attention. One
@@ -101,3 +119,7 @@ or <mailto:support@unremind.me>.
 [MIT](LICENSE) for this repository's contents. The UnRemind.me service itself is
 governed by its [Terms](https://unremind.me/terms) and
 [Privacy Policy](https://unremind.me/privacy).
+
+## Listed on
+
+- [Smithery](https://smithery.ai/servers/submissions-epan/unremind-me)

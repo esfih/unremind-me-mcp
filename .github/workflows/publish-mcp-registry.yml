@@ -64,8 +64,21 @@ jobs:
       - name: Login via GitHub OIDC
         run: mcp-publisher login github-oidc
 
+      # Publishing an UNCHANGED server must not fail the run. The registry
+      # rejects a duplicate version with 400, which is the correct answer to
+      # "publish this again" — but it is not a failure of the workflow, and
+      # treating it as one meant a re-run that only added the SECOND server
+      # died before reaching it. Publish is idempotent from here on.
       - name: Publish (manage server)
-        run: mcp-publisher publish
+        run: |
+          set +e
+          out=$(mcp-publisher publish 2>&1); rc=$?
+          echo "$out"
+          if [ $rc -ne 0 ]; then
+            echo "$out" | grep -q "cannot publish duplicate version" \
+              && echo "Already published at this version — nothing to do." \
+              || exit $rc
+          fi
 
       # The submit server is a SECOND registry entry from the same repo.
       # Publishing it here rather than hand-submitting to each directory is
@@ -85,4 +98,12 @@ jobs:
           [ "$code" = "200" ] || { echo "::error::submit endpoint returned $code"; exit 1; }
 
       - name: Publish (submit server)
-        run: mcp-publisher publish --file server-submit.json
+        run: |
+          set +e
+          out=$(mcp-publisher publish --file server-submit.json 2>&1); rc=$?
+          echo "$out"
+          if [ $rc -ne 0 ]; then
+            echo "$out" | grep -q "cannot publish duplicate version" \
+              && echo "Already published at this version — nothing to do." \
+              || exit $rc
+          fi

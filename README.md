@@ -11,6 +11,7 @@ AI agents**, each with scoped access rights and an audit log the owner
 reviews.
 
 [![smithery badge](https://smithery.ai/badge/submissions-epan/unremind-me)](https://smithery.ai/servers/submissions-epan/unremind-me)
+[![smithery badge](https://smithery.ai/badge/submissions-epan/unremind-me-submit)](https://smithery.ai/servers/submissions-epan/unremind-me-submit)
 
 **Endpoint** · `https://unremind.me/mcp`
 **Transport** · Streamable HTTP (JSON-RPC 2.0) · **Auth** · Bearer token ·
@@ -120,6 +121,17 @@ or <mailto:support@unremind.me>.
 governed by its [Terms](https://unremind.me/terms) and
 [Privacy Policy](https://unremind.me/privacy).
 
+## Two servers
+
+UnRemind.me exposes two MCP servers with different auth models. They
+cross-reference each other, so an agent that finds either learns of the other.
+
+| | Endpoint | Auth | For |
+|---|---|---|---|
+| **UnRemind.me** | `https://unremind.me/mcp` | bearer token | Manage *your own* reminders — 16 tools, 4 prompts |
+| **UnRemind.me Submit** | `https://unremind.me/mcp/submit` | **none** | Send a reminder *to someone else* with a public page — 2 tools, 1 prompt |
+
 ## Listed on
 
-- [Smithery](https://smithery.ai/servers/submissions-epan/unremind-me)
+- [Smithery — UnRemind.me](https://smithery.ai/servers/submissions-epan/unremind-me)
+- [Smithery — UnRemind.me Submit](https://smithery.ai/servers/submissions-epan/unremind-me-submit)

@@ -1,0 +1,25 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-09-29/server.schema.json",
+  "name": "io.github.esfih/unremind",
+  "description": "Context-aware reminders that surface when your situation matches, not at a fixed time. 16 tools for Unreminders, context tags, delegated tasks, conflict checks and workload review.",
+  "version": "2.0.0",
+  "websiteUrl": "https://unremind.me/",
+  "repository": {
+    "url": "https://github.com/esfih/unremind-mcp",
+    "source": "github"
+  },
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://unremind.me/mcp?src=mcp-registry",
+      "headers": [
+        {
+          "name": "Authorization",
+          "description": "Bearer <token> \u2014 generate in the UnRemind app under Settings \u2192 AI agents \u2192 MCP access. See https://unremind.me/mcp/",
+          "isRequired": true,
+          "isSecret": true
+        }
+      ]
+    }
+  ]
+}

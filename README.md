@@ -1,7 +1,7 @@
-# UnRemind MCP Server
+# UnRemind.me MCP Server
 
 Remote [MCP](https://modelcontextprotocol.io) server for
-**[UnRemind](https://unremind.me)** — context-aware reminders that surface
+**[UnRemind.me](https://unremind.me)** — context-aware reminders that surface
 when your *situation* matches, instead of firing at a fixed time.
 
 An "Unreminder" carries context tags — where you are, what device you have,
@@ -18,7 +18,7 @@ reviews.
 
 ## Connect
 
-1. Install UnRemind ([Android](https://unremind.me/) or the
+1. Install UnRemind.me ([Android](https://unremind.me/) or the
    [web app](https://app.unremind.me/)) and sign in.
 2. In the app: **Settings → AI agents → MCP access → Create token.** The token
    is shown once.
@@ -98,6 +98,6 @@ or <mailto:support@unremind.me>.
 
 ## License
 
-[MIT](LICENSE) for this repository's contents. The UnRemind service itself is
+[MIT](LICENSE) for this repository's contents. The UnRemind.me service itself is
 governed by its [Terms](https://unremind.me/terms) and
 [Privacy Policy](https://unremind.me/privacy).
